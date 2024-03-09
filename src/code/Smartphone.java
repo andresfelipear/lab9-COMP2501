@@ -1,7 +1,7 @@
 /**
  * Smartphone of BCIT
  *
- * @author Andres Arevalo
+ * @author Andres Arevalo, Yeonghsuk Oh & Ila Koukia
  * @version 1.0
  */
 public class Smartphone extends ScreenDevice

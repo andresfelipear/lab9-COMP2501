@@ -1,19 +1,19 @@
 /**
  * Monitor of BCIT
  *
- * @author Andres Arevalo
+ * @author Andres Arevalo, Yeonghsuk Oh & Ila Koukia
  * @version 1.0
  */
 public class Monitor extends ScreenDevice
 {
-    private final int refreshRate;
+    private final int refreshRateHz;
     private final int numberInputPorts;
 
     private static final int MIN_NUMBER_INPUT_PORTS = 1;
     private static final int MAX_NUMBER_INPUT_PORTS = 6;
 
-    private static final int MIN_REFRESH_RATE = 60;
-    private static final int MAX_REFRESH_RATE = 360;
+    private static final int MIN_REFRESH_RATE_HZ = 60;
+    private static final int MAX_REFRESH_RATE_HZ = 360;
 
     /**
      * Constructs a Monitor with the specified parameters.
@@ -23,7 +23,7 @@ public class Monitor extends ScreenDevice
      * @param resolution       The screen resolution in the format "width x height".
      * @param powerSource      The power source for the monitor, either "battery" or "electricity".
      * @param manufacturer     The manufacturer of the monitor.
-     * @param refreshRate      The refresh rate of the monitor.
+     * @param refreshRateHz      The refresh rate of the monitor.
      * @param numberInputPorts The number of input ports on the monitor.
      * @throws IllegalArgumentException if any parameter is invalid.
      */
@@ -32,7 +32,7 @@ public class Monitor extends ScreenDevice
                    final String resolution,
                    final String powerSource,
                    final String manufacturer,
-                   final int refreshRate,
+                   final int refreshRateHz,
                    final int numberInputPorts)
     {
         super(name,
@@ -41,12 +41,12 @@ public class Monitor extends ScreenDevice
               powerSource,
               manufacturer);
 
-        if(!isValidRefreshRate(refreshRate))
+        if(!isValidRefreshRateHz(refreshRateHz))
         {
             throw new IllegalArgumentException(
                     String.format("Invalid Refresh Rate. It should be between %d and %d",
-                                  MIN_REFRESH_RATE,
-                                  MAX_REFRESH_RATE));
+                                  MIN_REFRESH_RATE_HZ,
+                                  MAX_REFRESH_RATE_HZ));
         }
 
         if(!isValidNumberInputPorts(numberInputPorts))
@@ -57,19 +57,19 @@ public class Monitor extends ScreenDevice
                                   MAX_NUMBER_INPUT_PORTS));
         }
 
-        this.refreshRate = refreshRate;
+        this.refreshRateHz = refreshRateHz;
         this.numberInputPorts = numberInputPorts;
     }
 
     /**
      * Checks if the refresh rate is valid.
      *
-     * @param refreshRate The refresh rate to be validated.
+     * @param refreshRateHz The refresh rate to be validated.
      * @return true if the refresh rate is within the valid range, false otherwise.
      */
-    private boolean isValidRefreshRate(final int refreshRate)
+    private boolean isValidRefreshRateHz(final int refreshRateHz)
     {
-        return refreshRate >= MIN_REFRESH_RATE && refreshRate <= MAX_REFRESH_RATE;
+        return refreshRateHz >= MIN_REFRESH_RATE_HZ && refreshRateHz <= MAX_REFRESH_RATE_HZ;
     }
 
     /**
@@ -93,7 +93,7 @@ public class Monitor extends ScreenDevice
     public String toString()
     {
         return "Monitor" + super.toString() +
-                "\nRefresh Rate: " + refreshRate +
+                "\nRefresh Rate: " + refreshRateHz +
                 "\nNumber of Input Ports: " + numberInputPorts;
     }
 }

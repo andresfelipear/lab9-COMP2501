@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * ScreenDevice of BCIT
@@ -16,11 +14,14 @@ public class ScreenDevice
     private final String powerSource;
     private final String manufacturer;
 
+    private static final String SPLIT_CHARACTER = "x";
     private static final int VALID_NUMBER_ELEMENTS = 2;
     static final double MIN_SCREEN_SIZE_INCHES = 2.55;
     static final double MAX_SCREEN_SIZE_INCHES = 97.00;
 
     // Min screen resolution 240x320
+    private static final int SCREEN_WIDTH_POSITION = 0;
+    private static final int SCREEN_HEIGHT_POSITION = 0;
     static final int MIN_SCREEN_WIDTH_RESOLUTION = 240;
     static final int MIN_SCREEN_HEIGHT_RESOLUTION = 320;
 
@@ -35,14 +36,14 @@ public class ScreenDevice
      *
      * @param name             The name of the screen device.
      * @param screenSizeInches The size of the screen in inches.
-     * @param resolution       The screen resolution in the format "width x height".
+     * @param resolutionPx       The screen resolutionPx in the format "width x height".
      * @param powerSource      The power source for the device, either "battery" or "electricity".
      * @param manufacturer     The manufacturer of the device.
      * @throws IllegalArgumentException if any parameter is invalid.
      */
     public ScreenDevice(final String name,
                         final double screenSizeInches,
-                        final String resolution,
+                        final String resolutionPx,
                         final String powerSource,
                         final String manufacturer)
     {
@@ -59,7 +60,7 @@ public class ScreenDevice
                                   MAX_SCREEN_SIZE_INCHES));
         }
 
-        if(!isValidResolution(resolution))
+        if(!isValidResolutionHz(resolutionPx))
         {
             throw new IllegalArgumentException(
                     String.format("Invalid Screen Resolution, it should be between %dx%d and %dx%d",
@@ -81,7 +82,7 @@ public class ScreenDevice
 
         this.name = name;
         this.screenSizeInches = screenSizeInches;
-        this.resolution = resolution;
+        this.resolution = resolutionPx;
         this.powerSource = powerSource;
         this.manufacturer = manufacturer;
     }
@@ -117,31 +118,31 @@ public class ScreenDevice
     }
 
     /**
-     * Checks if the screen resolution is valid.
+     * Checks if the screen resolutionHz is valid.
      *
-     * @param resolution The screen resolution to be validated.
-     * @return true if the resolution is in the valid range, false otherwise.
+     * @param resolutionHz The screen resolutionHz to be validated.
+     * @return true if the resolutionHz is in the valid range, false otherwise.
      */
-    private boolean isValidResolution(final String resolution)
+    private boolean isValidResolutionHz(final String resolutionHz)
     {
         final int      screenWidthPixels;
         final int      screenHeightPixels;
         final String[] arrayResolution;
 
-        if(resolution == null || resolution.isEmpty())
+        if(resolutionHz == null || resolutionHz.isEmpty())
         {
             return false;
         }
 
-        arrayResolution = resolution.split("x");
+        arrayResolution = resolutionHz.split(SPLIT_CHARACTER);
 
         if(arrayResolution.length != VALID_NUMBER_ELEMENTS)
         {
             return false;
         }
 
-        screenWidthPixels = Integer.parseInt(arrayResolution[0]);
-        screenHeightPixels = Integer.parseInt(arrayResolution[1]);
+        screenWidthPixels = Integer.parseInt(arrayResolution[SCREEN_WIDTH_POSITION]);
+        screenHeightPixels = Integer.parseInt(arrayResolution[SCREEN_HEIGHT_POSITION]);
 
         return (screenWidthPixels > MIN_SCREEN_WIDTH_RESOLUTION && screenHeightPixels > MIN_SCREEN_HEIGHT_RESOLUTION) ||
                 (screenWidthPixels < MAX_SCREEN_WIDTH_RESOLUTION && screenHeightPixels < MAX_SCREEN_HEIGHT_RESOLUTION);

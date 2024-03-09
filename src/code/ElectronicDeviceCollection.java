@@ -3,12 +3,12 @@ import java.util.List;
 
 /**
  * ElectronicDeviceCollection represents a collection of screen devices.
- * <p>
+ *
  * This class manages a collection of ScreenDevice instances, providing methods to add, remove,
  * display, and retrieve information about the devices. It uses a generic List to store instances
  * of ScreenDevice in a unified collection.
  *
- * @author user
+ * @author Andres Arevalo, Yeonghsuk Oh & Ila Koukia
  * @version 1.0
  */
 public class ElectronicDeviceCollection
